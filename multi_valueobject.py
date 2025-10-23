@@ -109,18 +109,20 @@ ayse_places = session.query(Place).filter(
 
 for pl in ayse_places:
     print(pl.name)  # Kahve Dükkanı
+print("----------------------------------------------------------------------")
+"""✅ Alternatifler (değişiklik yapmadan değil ama)
+Eğer hiçbir değişiklik yapmadan istiyorsanız, tek seçeneğiniz tüm kayıtları
+Python tarafında filtrelemek:"""
+products = session.query(Product).all()
+expensive = [p for p in products if p.price and p.price.amount > 10000]
+for p in expensive:
+    print(f"{p.name}: {p.price.amount} {p.price.currency}")
 
+#Bu, verimsizdir (özellikle büyük veri setlerinde) ama çalışır — ve json_extract kullanmaz.
 
-
-
-
-
-
-
-
-
-
-
+print("----------------------------------------------------------------------")
+p = session.query(Product).first()
+print(p.price.amount)  # ✅ Bu çalışır — çünkü ORM bu nesneyi Python nesnesi olarak döndürdü.
 
 
 
